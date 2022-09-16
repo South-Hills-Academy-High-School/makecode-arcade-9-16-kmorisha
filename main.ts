@@ -34,7 +34,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
             . . . . . . 3 3 3 3 3 3 3 3 3 3 
             . . . . . . 3 3 3 3 3 3 3 3 3 3 
             `, SpriteKind.Player))
-        snakebody[0].setPosition(foodx - updatevx * (10 + 2), foody - (updatevy * 10 + 2))
+        snakebody[0].setPosition(foodx - updatevx * (10 + 2), foody / (updatevy * 10 + 2))
         foodx = randint(0, 15) * 10
         foody = randint(0, 11) * 10
     }
@@ -122,4 +122,11 @@ game.onUpdate(function () {
     }
     snakeheadx += updatevx
     snakeheady += updatevy
+})
+game.onUpdate(function () {
+    for (let value of snakebody) {
+        if (!(value == snakebody[0]) && snakehead.overlapsWith(value)) {
+            game.over(false)
+        }
+    }
 })
